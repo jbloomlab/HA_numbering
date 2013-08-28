@@ -269,11 +269,17 @@ def main():
     if len(lines) != 3:
         raise IOError("Failed to find exactly three non-empty lines in infile")
     if lines[0][0] == 'probconspath' and len(lines[0]) == 2:
-        probconspath = lines[0][1].strip()
-        if not os.path.isdir(probconspath):
-            raise IOError("The directory of %s specified by probconspath does not exist." % (probconspath))
+        alignerpath = lines[0][1].strip()
+        if not os.path.isdir(alignerpath):
+            raise IOError("The directory of %s specified by probconspath does not exist." % (alignerpath))
+        prog = 'PROBCONS'
+    elif lines[0][0] == 'musclepath' and len(lines[0]) == 2:
+        alignerpath = lines[0][1].strip()
+        if not os.path.isdir(alignerpath):
+            raise IOError("The directory of %s specified by musclepath does not exist." % (alignerpath))
+        prog = 'MUSCLE'
     else:
-        raise IOError("First line does not specify probconspath")
+        raise IOError("First line does not specify probconspath or musclepath")
     if lines[1][0] == 'ha_sequence' and len(lines[0]) == 2:
         ha_sequence = lines[1][1].strip().upper()
     else:
@@ -321,10 +327,10 @@ def main():
     assert len(seq_d['4JTV']) == len(label_d['4JTV'])
 
     # make alignments
-    print "Making PROBCONS alignments..."
+    print "Making %s alignments..." % prog
     alignments = {}
     for seqname in seq_names:
-        alignments[seqname] = Align([('seq', ha_sequence), (seqname, seq_d[seqname])], probconspath)
+        alignments[seqname] = Align([('seq', ha_sequence), (seqname, seq_d[seqname])], alignerpath, prog)
     print "Alignments complete.\n\nHere are the corresponding residue numbers:"
     for site in sites:
         if not (1 <= site <= len(ha_sequence)):

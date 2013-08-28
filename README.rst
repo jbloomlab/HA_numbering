@@ -15,7 +15,7 @@ Installation
 
 You can download the script `on GitHub`_ (just click on the button that says ``Download ZIP`` on the right side of the page partway down). This is a `Python`_ script that is known to work with versions 2.6 and 2.7, and probably works with other versions 2.* as well. So you will need to have `Python`_ installed on your computer. 
 
-This script also requires you to install the `PROBCONS`_ alignment program, which is used to make the alignments for the number conversions. `PROBCONS`_ can be downloaded for free, and this script has been tested with version 1.12.
+This script also requires you to install **either** the `PROBCONS`_ alignment program or the `MUSCLE`_ alignment program. The alignment program is used to make the alignments for the number conversions. This script has only been tested with `PROBCONS`_ version 1.12 and `MUSCLE`_ version 3.8.31, but wll probably also work with other versions.
 
 
 Numbering schemes
@@ -37,15 +37,21 @@ This script converts between several numbering schemes. You will give it a HA pr
 Input file
 -------------------
 
-To run this script, create an input file of the format below::
+To run this script, create an input file of the format below (if you are using `PROBCONS`_)::
 
     probconspath /Users/jbloom/probcons/
     ha_sequence MKAILVVLLYTFATANADTLCIGYHANNSTDTVDTVLEKNVTVTHSVNLLEDKHNGKLCKLRGVAPLHLGKCNIAGWILGNPECESLSTASSWSYIVETPSSDNGTCYPGDFIDYEELREQLSSVSSFERFEIFPKTSSWPNHDSNKGVTAACPHAGAKSFYKNLIWLVKKGNSYPKLSKSYINDKGKEVLVLWGIHHPSTSADQQSLYQNADAYVFVGSSRYSKKFKPEIAIRPKVRDQEGRMNYYWTLVEPGDKITFEATGNLVVPRYAFAMERNAGSGIIISDTPVHDCNTTCQTPKGAINTSLPFQNIHPITIGKCPKYVKSTKLRLATGLRNIPSIQSRGLFGAIAGFIEGGWTGMVDGWYGYHHQNEQGSGYAADLKSTQNAIDEITNKVNSVIEKMNTQFTAVGKEFNHLEKRIENLNKKVDDGFLDIWTYNAELLVLLENERTLDYHDSNVKNLYEKVRSQLKNNAKEIGNGCFEFYHKCDNTCMESVKNGTYDYPKYSEEAKLNREEIDGVKLESTRIYQILAIYSTVASSLVLVVSLGAISFWMCSNGSLQCRICI
     sites 180 15 389 288 216 312 179 145
 
-This file specifies three keys which have the following meanings:
+or the format below (if you are using `MUSCLE`_)::
 
-  * *probconspath* is a path to the `PROBCONS`_ executable. Within the directory specified by this path, there should be an executable with the name ``probcons``. Right now you must specify a valid directory here even if `PROBCONS`_ is in the current search path.
+    musclepath /Users/jbloom/muscle3.8/
+    ha_sequence MKAILVVLLYTFATANADTLCIGYHANNSTDTVDTVLEKNVTVTHSVNLLEDKHNGKLCKLRGVAPLHLGKCNIAGWILGNPECESLSTASSWSYIVETPSSDNGTCYPGDFIDYEELREQLSSVSSFERFEIFPKTSSWPNHDSNKGVTAACPHAGAKSFYKNLIWLVKKGNSYPKLSKSYINDKGKEVLVLWGIHHPSTSADQQSLYQNADAYVFVGSSRYSKKFKPEIAIRPKVRDQEGRMNYYWTLVEPGDKITFEATGNLVVPRYAFAMERNAGSGIIISDTPVHDCNTTCQTPKGAINTSLPFQNIHPITIGKCPKYVKSTKLRLATGLRNIPSIQSRGLFGAIAGFIEGGWTGMVDGWYGYHHQNEQGSGYAADLKSTQNAIDEITNKVNSVIEKMNTQFTAVGKEFNHLEKRIENLNKKVDDGFLDIWTYNAELLVLLENERTLDYHDSNVKNLYEKVRSQLKNNAKEIGNGCFEFYHKCDNTCMESVKNGTYDYPKYSEEAKLNREEIDGVKLESTRIYQILAIYSTVASSLVLVVSLGAISFWMCSNGSLQCRICI
+    sites 180 15 389 288 216 312 179 145
+
+These files specify three keys which have the following meanings:
+
+  * *probconspath* or *musclepath* (just choose one of these) is the path to the `PROBCONS`_ or `MUSCLE`_ executable used for alignment. Either one will work, so just use the one installed on your computer. Within the directory specified by this path, there should be an executable with the name ``probcons`` or ``muscle``. Right now you must specify a valid directory here even if `PROBCONS`_ or `MUSCLE`_ are in the current search path.
 
   * *ha_sequence* gives the protein sequence of the HA that we are examining as a string of letters. 
 
@@ -116,3 +122,4 @@ The output format is printed to standard output. For example, for the example in
 .. _`PROBCONS`: http://probcons.stanford.edu/download.html
 .. _`4HMG`: http://www.pdb.org/pdb/explore/jmol.do?bionumber=1&structureId=4HMG
 .. _`4JTV`: http://www.pdb.org/pdb/explore/explore.do?structureId=4jtv
+.. _`MUSCLE`: http://www.drive5.com/muscle/
